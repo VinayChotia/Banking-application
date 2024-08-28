@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['account_number', 'account_active_status', 'account_type', 'account_kyc', 'balance','bank_name']
+        fields = ['account_number', 'account_number', 'account_type', 'account_kyc', 'balance','bank_name']
         read_only_fields = ['user'] 
       
 
@@ -72,6 +72,7 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, data):
         user = authenticate(username=data.get('username'), password=data.get('password'))
+        print(user.is_active,user)
         if user and user.is_active:
             return {'user': user}
         raise serializers.ValidationError("Invalid credentials")

@@ -13,7 +13,7 @@ class Account(models.Model):
     SALARY = 'salary'
     
     ACCOUNT_TYPE_CHOICES = [
-        (SAVINGS, 'Savings'),
+        (SAVINGS, 'Savings'), 
         (CURRENT, 'Current'),
         (SALARY, 'Salary'),
     ]

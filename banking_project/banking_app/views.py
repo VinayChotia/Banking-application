@@ -14,7 +14,7 @@ import reportlab
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken,Token
 from django.views.decorators.debug import sensitive_variables
 
 
@@ -37,11 +37,31 @@ class CreateAccount(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user
+        print('*********')
         serializer.save(
             user=user,
             account_holder_name=user.username
         )
 
+
+# class CreateAccount(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def post(self, request, *args, **kwargs):
+#         # Get the authenticated user's KYC status
+#         user = request.user
+#         kyc_status = user.kyc_status  # Assuming the user model has a 'kyc_status' field
+
+#         # Merge the KYC status into the request data
+#         data = request.data.copy()
+#         data['kyc_status'] = kyc_status
+
+#         # Create a new account with the KYC status
+#         serializer = AccountSerializer(data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -201,24 +221,25 @@ class TransactionHistoryView(APIView):
         
 
 
-class LoginViewToken(generics.GenericAPIView):
-    permission_classes = [AllowAny]
-    serializer_class = LoginSerializer
+# class LoginViewToken(generics.GenericAPIView):
+#     permission_classes = [AllowAny]
+#     serializer_class = LoginSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data["user"]
-        login(request, user)
-        if user:
-            token,created = Token.objects.get_or_create(user=user)
-        return Response({'token':token.key}, status=status.HTTP_200_OK)
+#     def post(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.validated_data["user"]
+#         login(request, user)
+#         if user:
+            # token,created = Token.objects.get_or_create(user=user)
+        # return Response({'token':token.key}, status=status.HTTP_200_OK)
 
 class LoginView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
+        print('vinay')
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
