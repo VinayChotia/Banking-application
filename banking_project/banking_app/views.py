@@ -44,25 +44,6 @@ class CreateAccount(generics.ListCreateAPIView):
         )
 
 
-# class CreateAccount(APIView):
-#     permission_classes = [IsAuthenticated]
-
-#     def post(self, request, *args, **kwargs):
-#         # Get the authenticated user's KYC status
-#         user = request.user
-#         kyc_status = user.kyc_status  # Assuming the user model has a 'kyc_status' field
-
-#         # Merge the KYC status into the request data
-#         data = request.data.copy()
-#         data['kyc_status'] = kyc_status
-
-#         # Create a new account with the KYC status
-#         serializer = AccountSerializer(data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class DepositView(APIView):
