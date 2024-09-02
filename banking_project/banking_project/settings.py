@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'banking_app'
 ]
-# CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_ALL_ORIGINS=True
 
 # REST_FRAMEWORK = {
 
